@@ -3,6 +3,7 @@
 #include <TFT_eSPI.h>
 
 #include "boot.h"
+#include "logo.h"
 
 TFT_eSPI tfts = TFT_eSPI();
 
@@ -12,6 +13,7 @@ void setup() {
   tfts.setRotation(1);
   tfts.fillScreen(TFT_WHITE);
   bootAnimation(tfts);
+  tfts.drawBitmap(SCREEN_WIDTH/3 - 20, 20, logo,  150, 150, TFT_WHITE);
 }
 
 void loop() {
