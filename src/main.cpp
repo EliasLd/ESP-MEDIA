@@ -4,14 +4,14 @@
 
 #include "boot.h"
 
-TFT_eSPI tft = TFT_eSPI();
+TFT_eSPI tfts = TFT_eSPI();
 
 void setup() {
   Serial.begin(9600);
-  tft.init();
-  tft.setRotation(1);
-  tft.fillScreen(TFT_WHITE);
-  boot_animation(tft);
+  tfts.init();
+  tfts.setRotation(1);
+  tfts.fillScreen(TFT_WHITE);
+  bootAnimation(tfts);
 }
 
 void loop() {
