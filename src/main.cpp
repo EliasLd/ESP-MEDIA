@@ -14,6 +14,9 @@ void setup() {
   tfts.fillScreen(TFT_WHITE);
   bootAnimation(tfts);
   tfts.drawBitmap(SCREEN_WIDTH/3 - 20, 20, logo,  150, 150, TFT_WHITE);
+  delay(500);
+  chargement(tfts, TFT_BLACK);
+  tfts.fillScreen(TFT_BLACK);
 }
 
 void loop() {
