@@ -4,6 +4,7 @@
 
 #include "boot.h"
 #include "logo.h"
+#include "menu.h"
 
 TFT_eSPI tfts = TFT_eSPI();
 
@@ -20,6 +21,9 @@ void setup() {
 }
 
 void loop() {
-  
+  afficherMenu(tfts);
+  while(!afficherChoix(tfts)){
+
+  }
 }
 
