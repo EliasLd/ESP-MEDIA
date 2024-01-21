@@ -7,6 +7,10 @@
 #include "menu.h"
 
 TFT_eSPI tfts = TFT_eSPI();
+TFT_eSPI_Button inputs[3];
+TFT_eSPI_Button back[1];
+const char *inputsLabel[] = {"Games", "Draw", "Netwrk"};
+int degree = 0;
 
 void setup() {
   Serial.begin(9600);
@@ -21,9 +25,20 @@ void setup() {
 }
 
 void loop() {
-  afficherMenu(tfts);
-  while(!afficherChoix(tfts)){
-
+  
+  printMenu(tfts, inputs, inputsLabel);
+  while(!menuInput(tfts, inputs, inputsLabel) && degree == 0){ }
+  for(int i = 0 ; i < 3 ; i ++){
+    if(inputs[i].isPressed()){
+      if(inputsLabel[i] == "Games"){
+        degree++;
+        tfts.fillScreen(TFT_BLACK);
+        printBackButton(tfts, back);
+        while(degree == 1){
+          if(Backed(tfts, back)) {degree--;}
+        }
+      }
+    }
   }
 }
 

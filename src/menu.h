@@ -12,12 +12,17 @@
 #define INPUT_GAP_X 35
 #define INPUT_GAP_Y 20 
 
-void afficherMenu(TFT_eSPI tft);
+#define BACK_W 30
+#define BACK_H 20
+#define BACK_X 10
+#define BACK_Y SCREEN_HEIGHT - 10 - BACK_H
 
-TFT_eSPI_Button inputs[3];
-const char *inputsLabel[] = {"Jeux", "Meteo", "Reseau"};
+void printMenu(TFT_eSPI tft, TFT_eSPI_Button inputs[3], const char *inputsLabel[]);
+bool menuInput(TFT_eSPI tft, TFT_eSPI_Button inputs[3], const char *inputsLabel[]);
+void printBackButton(TFT_eSPI tft, TFT_eSPI_Button back[1]);
+bool Backed(TFT_eSPI tft, TFT_eSPI_Button back[1]);
 
-void afficherMenu(TFT_eSPI tft){
+void printMenu(TFT_eSPI tft, TFT_eSPI_Button inputs[3], const char *inputsLabel[]){
     tft.fillScreen(TFT_BLACK);
     tft.setFreeFont(FMO9);
 
@@ -36,20 +41,42 @@ void afficherMenu(TFT_eSPI tft){
     }
 }
 
-bool afficherChoix(TFT_eSPI tft){
+bool menuInput(TFT_eSPI tft, TFT_eSPI_Button inputs[3], const char *inputsLabel[]){
     uint16_t tx = 0, ty = 0;
     bool pressed = false;
     bool t;
     
     for(int i = 0 ;  i < 3 ; i++){
        t = tft.getTouch(&tx, &ty);
-       if(inputs[i].contains(tx, ty - 65)){
+       if(inputs[i].contains(tx, ty - 70)){
           inputs[i].drawButton(true);
+          inputs[i].press(true);
           pressed = true;
           delay(100);
        }
     }
     return pressed;
+}
+
+void printBackButton(TFT_eSPI tft, TFT_eSPI_Button back[1]){
+  back[0].initButton(&tft, BACK_X, BACK_Y, BACK_W, BACK_H, 
+                  TFT_RED, TFT_RED, TFT_WHITE,
+                  (char*)"<-", 1);
+  back[0].drawButton();
+}
+
+bool Backed(TFT_eSPI tft, TFT_eSPI_Button back[1]){
+  uint16_t bx = 0, by = 0;
+  bool pressed = false;
+  bool b;
+
+  b = tft.getTouch(&bx, &by);
+  if(back[0].contains(bx, by + 183)){
+    back[0].drawButton(true);
+    pressed = true;
+    delay(50);
+  }
+  return pressed;
 }
 
 void touchCalibrate(TFT_eSPI tft)
