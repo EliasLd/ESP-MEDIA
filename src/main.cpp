@@ -35,7 +35,7 @@ void loop() {
         tfts.fillScreen(TFT_BLACK);
         printBackButton(tfts, back);
         while(degree == 1){
-          if(Backed(tfts, back)) {degree--;}
+          if(Backed(tfts, back)) {degree--; inputs[i].press(false);}
         }
       }
     }
