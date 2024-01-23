@@ -11,12 +11,14 @@ TFT_eSPI_Button inputs[3];
 TFT_eSPI_Button back[1];
 const char *inputsLabel[] = {"Games", "Draw", "Netwrk"};
 int degree = 0;
+uint16_t calData[5] = {342, 3174, 533, 3248, 4};
 
 void setup() {
   Serial.begin(9600);
   tfts.init();
-  tfts.setRotation(1);
+  tfts.setRotation(0);
   tfts.fillScreen(TFT_WHITE);
+  tfts.setTouch(calData);
   bootAnimation(tfts);
   tfts.drawBitmap(SCREEN_WIDTH/3 - 20, 20, logo,  150, 150, TFT_WHITE);
   delay(500);

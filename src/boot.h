@@ -1,5 +1,5 @@
-#define SCREEN_WIDTH 320
-#define SCREEN_HEIGHT 240
+#define SCREEN_HEIGHT 320
+#define SCREEN_WIDTH 240
 
 void bootAnimation(TFT_eSPI tft);
 void textAnimation(TFT_eSPI tft, const char* text, uint16_t color, int size);

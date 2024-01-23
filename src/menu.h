@@ -3,9 +3,11 @@
 #include <Arduino.h>
 #include <SPI.h>
 #include <TFT_eSPI.h>
+#include <FS.h>
+#include <TFT_eWidget.h>
 
-#define SCREEN_WIDTH 320
-#define SCREEN_HEIGHT 240
+#define SCREEN_HEIGHT 320
+#define SCREEN_WIDTH 240
 
 #define INPUT_W 68
 #define INPUT_H 30
@@ -16,6 +18,9 @@
 #define BACK_H 20
 #define BACK_X 10
 #define BACK_Y SCREEN_HEIGHT - 10 - BACK_H
+
+#define CALIBRATION_FILE "/TouchCalData1"
+#define REPEAT_CAL false
 
 void printMenu(TFT_eSPI tft, TFT_eSPI_Button inputs[3], const char *inputsLabel[]);
 bool menuInput(TFT_eSPI tft, TFT_eSPI_Button inputs[3], const char *inputsLabel[]);
@@ -48,7 +53,7 @@ bool menuInput(TFT_eSPI tft, TFT_eSPI_Button inputs[3], const char *inputsLabel[
     
     for(int i = 0 ;  i < 3 ; i++){
        t = tft.getTouch(&tx, &ty);
-       if(inputs[i].contains(tx, ty - 70)){
+       if(inputs[i].contains(tx, ty)){
           inputs[i].drawButton(true);
           inputs[i].press(true);
           pressed = true;
@@ -71,7 +76,7 @@ bool Backed(TFT_eSPI tft, TFT_eSPI_Button back[1]){
   bool b;
 
   b = tft.getTouch(&bx, &by);
-  if(back[0].contains(bx, by + 183)){
+  if(back[0].contains(bx, by)){
     back[0].drawButton(true);
     pressed = true;
     delay(50);
@@ -79,45 +84,56 @@ bool Backed(TFT_eSPI tft, TFT_eSPI_Button back[1]){
   return pressed;
 }
 
-void touchCalibrate(TFT_eSPI tft)
+void touch_calibrate(TFT_eSPI tft)
 {
   uint16_t calData[5];
   uint8_t calDataOK = 0;
 
-  // Calibrate
-  tft.fillScreen(TFT_BLACK);
-  tft.setCursor(20, 0);
-  tft.setTextFont(2);
-  tft.setTextSize(1);
-  tft.setTextColor(TFT_WHITE, TFT_BLACK);
-
-  tft.println("Touch corners as indicated");
-
-  tft.setTextFont(1);
-  tft.println();
-
-  tft.calibrateTouch(calData, TFT_MAGENTA, TFT_BLACK, 15);
-
-  Serial.println(); Serial.println();
-  Serial.println("// Use this calibration code in setup():");
-  Serial.print("  uint16_t calData[5] = ");
-  Serial.print("{ ");
-
-  for (uint8_t i = 0; i < 5; i++)
-  {
-    Serial.print(calData[i]);
-    if (i < 4) Serial.print(", ");
+  // check file system exists
+  if (!LittleFS.begin()) {
+    Serial.println("formatting file system");
+    LittleFS.format();
+    LittleFS.begin();
   }
 
-  Serial.println(" };");
-  Serial.print("  tft.setTouch(calData);");
-  Serial.println(); Serial.println();
+  // check if calibration file exists and size is correct
+  if (LittleFS.exists(CALIBRATION_FILE)) {
+    if (REPEAT_CAL)
+    {
+      // Delete if we want to re-calibrate
+      LittleFS.remove(CALIBRATION_FILE);
+    }
+    else{
+      calDataOK = 1;
+    }
+  }
 
-  tft.fillScreen(TFT_BLACK);
-  
-  tft.setTextColor(TFT_GREEN, TFT_BLACK);
-  tft.println("Calibration complete!");
-  tft.println("Calibration code sent to Serial port.");
+  if (calDataOK && REPEAT_CAL) {
+    // calibration data valid
+    tft.setTouch(calData);
+  } else {
+    // data not valid so recalibrate
+    tft.fillScreen(TFT_BLACK);
+    tft.setCursor(20, 0);
+    tft.setTextFont(2);
+    tft.setTextSize(1);
+    tft.setTextColor(TFT_WHITE, TFT_BLACK);
 
-  delay(4000);
+    tft.println("Touch corners as indicated");
+
+    tft.setTextFont(1);
+    tft.println();
+
+    if (REPEAT_CAL) {
+      tft.setTextColor(TFT_RED, TFT_BLACK);
+      tft.println("Set REPEAT_CAL to false to stop this running again!");
+    }
+
+    tft.calibrateTouch(calData, TFT_MAGENTA, TFT_BLACK, 15);
+
+    tft.setTextColor(TFT_GREEN, TFT_BLACK);
+    tft.println("Calibration complete!");
+
+    // store data
+  }
 }
