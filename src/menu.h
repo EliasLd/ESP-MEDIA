@@ -16,8 +16,8 @@
 
 #define BACK_W 30
 #define BACK_H 20
-#define BACK_X 10
-#define BACK_Y SCREEN_HEIGHT - 10 - BACK_H
+#define BACK_X 20
+#define BACK_Y 20
 
 #define CALIBRATION_FILE "/TouchCalData1"
 #define REPEAT_CAL false
