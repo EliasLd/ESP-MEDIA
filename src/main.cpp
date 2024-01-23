@@ -19,9 +19,11 @@ void setup() {
   tfts.setRotation(0);
   tfts.fillScreen(TFT_WHITE);
   tfts.setTouch(calData);
+
   bootAnimation(tfts);
-  tfts.drawBitmap(SCREEN_WIDTH/3 - 20, 20, logo,  150, 150, TFT_WHITE);
-  delay(500);
+  tfts.drawBitmap(SCREEN_WIDTH/4 - 17, 50, logo,  150, 150, TFT_WHITE);
+  delay(3000);
+
   chargement(tfts, TFT_BLACK);
   tfts.fillScreen(TFT_BLACK);
 }

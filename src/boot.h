@@ -22,7 +22,7 @@ void textAnimation(TFT_eSPI tft, const char* text, uint16_t color, int size){
 
     while(x < SCREEN_WIDTH / 2 - w / 2){
         tft.fillRect(x, 0 , 20, x, TFT_BLACK); 
-        tft.drawString(text, x, SCREEN_HEIGHT - 60, size);
+        tft.drawString(text, x, SCREEN_HEIGHT - 90, size);
         wl+=4;
         x += 4;  
         delay(20);  
@@ -45,7 +45,7 @@ void chargement(TFT_eSPI tft, uint32_t color){
     const char* str = "LOADING";
     int w = tft.textWidth(str, 4);
     int xw = SCREEN_WIDTH / 2 - w/2;
-    tft.drawString(str, xw, SCREEN_HEIGHT - 60, 4);
+    tft.drawString(str, xw, SCREEN_HEIGHT - 100, 4);
     u_int32_t bgcol;
     
 
@@ -80,7 +80,7 @@ void chargement(TFT_eSPI tft, uint32_t color){
         if(xc <= x0 && yc <= y0){
             sw = false;
             tft.fillScreen(TFT_BLACK);
-            tft.drawString(str, xw, SCREEN_HEIGHT - 60, 4);
+            tft.drawString(str, xw, SCREEN_HEIGHT - 100, 4);
         }
     
         tft.fillCircle(xc, yc, 5, bgcol);

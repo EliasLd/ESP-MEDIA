@@ -11,7 +11,7 @@
 
 #define INPUT_W 68
 #define INPUT_H 30
-#define INPUT_GAP_X 35
+#define INPUT_GAP_X 5
 #define INPUT_GAP_Y 20 
 
 #define BACK_W 30
@@ -39,7 +39,7 @@ void printMenu(TFT_eSPI tft, TFT_eSPI_Button inputs[3], const char *inputsLabel[
     tft.drawString(str, xstr, 20, 4);
 
     for(uint8_t i = 0 ; i < 3 ; i++){
-        inputs[i].initButton(&tft, 60 + i * (INPUT_W + INPUT_GAP_X), 80,
+        inputs[i].initButton(&tft, 45  + i * (INPUT_W + INPUT_GAP_X), 80,
                             INPUT_W, INPUT_H, TFT_DARKGREY, TFT_DARKGREY, TFT_WHITE,
                             (char*)inputsLabel[i], 1);
         inputs[i].drawButton();
@@ -82,58 +82,4 @@ bool Backed(TFT_eSPI tft, TFT_eSPI_Button back[1]){
     delay(50);
   }
   return pressed;
-}
-
-void touch_calibrate(TFT_eSPI tft)
-{
-  uint16_t calData[5];
-  uint8_t calDataOK = 0;
-
-  // check file system exists
-  if (!LittleFS.begin()) {
-    Serial.println("formatting file system");
-    LittleFS.format();
-    LittleFS.begin();
-  }
-
-  // check if calibration file exists and size is correct
-  if (LittleFS.exists(CALIBRATION_FILE)) {
-    if (REPEAT_CAL)
-    {
-      // Delete if we want to re-calibrate
-      LittleFS.remove(CALIBRATION_FILE);
-    }
-    else{
-      calDataOK = 1;
-    }
-  }
-
-  if (calDataOK && REPEAT_CAL) {
-    // calibration data valid
-    tft.setTouch(calData);
-  } else {
-    // data not valid so recalibrate
-    tft.fillScreen(TFT_BLACK);
-    tft.setCursor(20, 0);
-    tft.setTextFont(2);
-    tft.setTextSize(1);
-    tft.setTextColor(TFT_WHITE, TFT_BLACK);
-
-    tft.println("Touch corners as indicated");
-
-    tft.setTextFont(1);
-    tft.println();
-
-    if (REPEAT_CAL) {
-      tft.setTextColor(TFT_RED, TFT_BLACK);
-      tft.println("Set REPEAT_CAL to false to stop this running again!");
-    }
-
-    tft.calibrateTouch(calData, TFT_MAGENTA, TFT_BLACK, 15);
-
-    tft.setTextColor(TFT_GREEN, TFT_BLACK);
-    tft.println("Calibration complete!");
-
-    // store data
-  }
 }
