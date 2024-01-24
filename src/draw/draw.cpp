@@ -1,5 +1,9 @@
 #include "draw.h"
 
+const char* colors[] = {"white", "black", "blue", "red",
+                        "yellow", "orange", "purple", "green"};
+TFT_eSPI_Button cinputs[8];                        
+
 void initDraw(TFT_eSPI tft){
     tft.fillScreen(TFT_BLACK);
     tft.fillRect(0, 40, SCREEN_WIDTH, SCREEN_HEIGHT - 30, TFT_DARKGREY);
@@ -13,7 +17,7 @@ void printEraseButton(TFT_eSPI tft, TFT_eSPI_Button erase[1]){
 void drawing(TFT_eSPI tft, TFT_eSPI_Button erase[1]){
     uint16_t x = 0, y = 0;
     if(tft.getTouch(&x, &y) && x < SCREEN_WIDTH && x > 0 && y > 40 && y < SCREEN_HEIGHT){
-       tft.fillCircle(x, y, 10, TFT_YELLOW);
+       tft.fillCircle(x, y, 4, TFT_YELLOW);
        delay(1);
     }
     if(pressed(tft, erase[0])){

@@ -1,6 +1,12 @@
 #define SCREEN_HEIGHT 320
 #define SCREEN_WIDTH 240
 
+#define CINPUT_X 30
+#define CINPUT_Y 20
+#define CINPUT_W 10
+#define CINPUT_H 10
+#define CINPUT_GAP_X 5
+
 #include <Arduino.h>
 #include <SPI.h>
 #include <TFT_eSPI.h>
