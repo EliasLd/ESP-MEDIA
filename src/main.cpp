@@ -2,15 +2,16 @@
 #include <SPI.h>
 #include <TFT_eSPI.h>
 
-#include "boot.h"
-#include "logo.h"
-#include "menu.h"
-#include "draw.h"
+#include "boot/boot.h"
+#include "logo/logo.h"
+#include "menu/menu.h"
+#include "draw/draw.h"
 
 TFT_eSPI tfts = TFT_eSPI();
 TFT_eSPI_Button inputs[3];
 TFT_eSPI_Button back[1];
 TFT_eSPI_Button erase[1];
+
 const char *inputsLabel[] = {"Games", "Draw", "Netwrk"};
 int degree = 0;
 uint16_t calData[5] = {342, 3174, 533, 3248, 4};
@@ -41,10 +42,10 @@ void loop() {
         tfts.fillScreen(TFT_BLACK);
         printBackButton(tfts, back);
         while(degree == 1){
-          if(Backed(tfts, back)) {degree--; inputs[i].press(false);}
+          if(pressed(tfts, back[0])) {degree--; inputs[i].press(false);}
         }
       }
-
+     
       if(inputsLabel[i] == "Draw"){
         degree++;
         initDraw(tfts);
@@ -52,8 +53,7 @@ void loop() {
         printEraseButton(tfts, erase);
         while(degree == 1){
           drawing(tfts, erase);
-          if(Backed(tfts, back)) {degree--; inputs[i].press(false);}
-
+          if(pressed(tfts, back[0])) {degree--; inputs[i].press(false);}
         }
       }
       

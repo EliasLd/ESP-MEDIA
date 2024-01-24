@@ -1,9 +1,8 @@
-#define SCREEN_HEIGHT 320
-#define SCREEN_WIDTH 240
+#include <Arduino.h>
+#include <SPI.h>
+#include <TFT_eSPI.h>
 
-void bootAnimation(TFT_eSPI tft);
-void textAnimation(TFT_eSPI tft, const char* text, uint16_t color, int size);
-void chargement(TFT_eSPI tft);
+#include "boot.h"
 
 void bootAnimation(TFT_eSPI tft) {
     int w = 1;
