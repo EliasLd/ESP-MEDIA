@@ -50,7 +50,7 @@ void loop() {
         degree++;
         initDraw(tfts);
         printBackButton(tfts, back);
-        printEraseButton(tfts, erase);
+        printDrawingButton(tfts, erase);
         while(degree == 1){
           drawing(tfts, erase);
           if(pressed(tfts, back[0])) {degree--; inputs[i].press(false);}
