@@ -9,7 +9,8 @@
 
 uint16_t colors[] = {TFT_WHITE, TFT_BLACK, TFT_BLUE, TFT_RED,
                         TFT_YELLOW, TFT_ORANGE, TFT_PURPLE, TFT_GREEN};
-TFT_eSPI_Button cinputs[8];          
+TFT_eSPI_Button cinputs[8];    
+TFT_eSPI_Button eraser;      
 
 uint16_t color = TFT_WHITE;
 
@@ -21,6 +22,8 @@ void initDraw(TFT_eSPI tft){
 void printDrawingButton(TFT_eSPI tft, TFT_eSPI_Button erase[1]){
     erase[0].initButton(&tft, SCREEN_WIDTH - 20, 20, 30, 20, TFT_RED, TFT_BLACK, TFT_WHITE, (char*)"-", 1);
     erase[0].drawButton();
+    eraser.initButton(&tft, SCREEN_WIDTH - 70, 20, 30, 20, TFT_DARKGREY, TFT_DARKGREY, TFT_WHITE, (char*)"-", 1);
+    eraser.drawButton();
     u_int16_t outline;
     int x = 0, y = COLOR_Y;
 
@@ -52,8 +55,7 @@ void drawing(TFT_eSPI tft, TFT_eSPI_Button erase[1]){
             erase[0].drawButton(false);
             tft.fillRect(0, 40, SCREEN_WIDTH, SCREEN_HEIGHT - 30, TFT_DARKGREY);
         }
-        if (pressed(tft, cinputs[i])) {
-            color = colors[i];
-        }
+        if (pressed(tft, cinputs[i])) {color = colors[i];}
+        //if(pressed(tft, eraser)) {color = TFT_DARKGREY;}
     }
 }
