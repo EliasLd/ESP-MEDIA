@@ -1,7 +1,7 @@
 #include "draw.h"
 
 #define COLOR_X 60
-#define COLOR_Y 20
+#define COLOR_Y 13
 #define COLOR_W 15
 #define COLOR_H 10
 
@@ -22,12 +22,21 @@ void printDrawingButton(TFT_eSPI tft, TFT_eSPI_Button erase[1]){
     erase[0].initButton(&tft, SCREEN_WIDTH - 20, 20, 30, 20, TFT_RED, TFT_BLACK, TFT_WHITE, (char*)"-", 1);
     erase[0].drawButton();
     u_int16_t outline;
+    int x = 0, y = COLOR_Y;
+
     for(int i = 0 ; i < 8 ; i++)
     {
         if(colors[i] == TFT_BLACK) {outline = TFT_WHITE;}
         else {outline = colors[i];}
-        cinputs[i].initButton(&tft, COLOR_X + i * (COLOR_W/2 + COLOR_GAP_X)
-                            , COLOR_Y, COLOR_W, COLOR_H, outline, colors[i]
+        if(i >= 4) {
+            x = 0 + i - 4;
+            y = COLOR_Y * 2;
+        }
+        else{
+            x = i;
+        }
+        cinputs[i].initButton(&tft, COLOR_X + x * (COLOR_W/2 + COLOR_GAP_X)
+                            , y, COLOR_W, COLOR_H, outline, colors[i]
                             , colors[i], (char*)" ", 1);
         cinputs[i].drawButton();
     }
