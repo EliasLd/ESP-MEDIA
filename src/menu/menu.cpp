@@ -50,7 +50,6 @@ bool pressed(TFT_eSPI tft, TFT_eSPI_Button button){
   if(tft.getTouch(&x, &y) && button.contains(x, y)){
     button.drawButton(true);
     pressed = true;
-    delay(50);
   }
   return pressed;
 }

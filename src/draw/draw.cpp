@@ -56,6 +56,6 @@ void drawing(TFT_eSPI tft, TFT_eSPI_Button erase[1]){
             tft.fillRect(0, 40, SCREEN_WIDTH, SCREEN_HEIGHT - 30, TFT_DARKGREY);
         }
         if (pressed(tft, cinputs[i])) {color = colors[i];}
-        //if(pressed(tft, eraser)) {color = TFT_DARKGREY;}
+        if(pressed(tft, eraser)) {color = TFT_DARKGREY;}
     }
 }
