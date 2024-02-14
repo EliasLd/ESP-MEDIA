@@ -19,6 +19,8 @@ const char *gamesLabel[] = {"Pong", "Mine", "Jump"};
 int degree = 0;
 uint16_t calData[5] = {342, 3174, 533, 3248, 4};  // touch calibration
 
+Racket racket(40, 4, 0, SCREEN_HEIGHT - SCREEN_HEIGHT/3);
+
 void setup() {
   Serial.begin(9600);
   tfts.init();
@@ -47,6 +49,19 @@ void loop() {
         printBackButton(tfts, back);
         while(degree == 1){
           if(pressed(tfts, back[0])) {tfts.fillScreen(TFT_BLACK); degree--; inputs[i].press(false);}
+          if(menuInput(tfts, gamesInput, gamesLabel)){
+            for(int j = 0 ; j < 3 ; j++){
+                if(gamesInput[i].isPressed()){
+                  if(gamesLabel[i] = "Pong"){
+                    tfts.fillScreen(TFT_PURPLE);
+                    printRacket(tfts, &racket, TFT_WHITE);
+                    while(true){
+                      moveRacket(tfts, &racket);
+                    }
+                }
+              }
+            }
+          }
         }
       }
      

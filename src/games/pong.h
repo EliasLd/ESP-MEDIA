@@ -33,4 +33,5 @@ class Block {
         } 
 };
 
-void printRacket(TFT_eSPI tft, Racket *R);
+void printRacket(TFT_eSPI tft, Racket *R, uint16_t color);
+void moveRacket(TFT_eSPI tft, Racket *R);
