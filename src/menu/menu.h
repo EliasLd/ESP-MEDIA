@@ -15,7 +15,7 @@
 #define BACK_X 20
 #define BACK_Y 20
 
-void printMenu(TFT_eSPI tft, TFT_eSPI_Button inputs[3], const char *inputsLabel[]);
+void printMenu(TFT_eSPI tft, TFT_eSPI_Button inputs[3], const char *inputsLabel[], const char* menuName);
 bool menuInput(TFT_eSPI tft, TFT_eSPI_Button inputs[3], const char *inputsLabel[]);
 void printBackButton(TFT_eSPI tft, TFT_eSPI_Button back[1]);
 bool pressed(TFT_eSPI tft, TFT_eSPI_Button button);

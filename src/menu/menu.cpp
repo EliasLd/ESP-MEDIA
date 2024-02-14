@@ -1,11 +1,11 @@
 #include "menu.h"
 #include "./fonts/Free_Fonts.h"
 
-void printMenu(TFT_eSPI tft, TFT_eSPI_Button inputs[3], const char *inputsLabel[]){
+void printMenu(TFT_eSPI tft, TFT_eSPI_Button inputs[3], const char *inputsLabel[], const char* menuName){
     tft.fillScreen(TFT_BLACK);
     tft.setFreeFont(FMO9);
 
-    const char *str = "MENU";
+    const char *str = menuName;
 
     int sstr = tft.textWidth(str, 4);
     int xstr = SCREEN_WIDTH/2 - sstr / 2;
@@ -14,7 +14,7 @@ void printMenu(TFT_eSPI tft, TFT_eSPI_Button inputs[3], const char *inputsLabel[
 
     for(uint8_t i = 0 ; i < 3 ; i++){
         inputs[i].initButton(&tft, 45  + i * (INPUT_W + INPUT_GAP_X), 80,
-                            INPUT_W, INPUT_H, TFT_DARKGREY, TFT_DARKGREY, TFT_WHITE,
+                            INPUT_W, INPUT_H, TFT_ORANGE, TFT_YELLOW, TFT_BLACK,
                             (char*)inputsLabel[i], 1);
         inputs[i].drawButton();
     }

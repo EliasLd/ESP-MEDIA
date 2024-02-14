@@ -9,12 +9,14 @@
 
 TFT_eSPI tfts = TFT_eSPI();
 TFT_eSPI_Button inputs[3];
+TFT_eSPI_Button gamesInput[3];
 TFT_eSPI_Button back[1];
 TFT_eSPI_Button erase[1];
 
 const char *inputsLabel[] = {"Games", "Draw", "Netwrk"};
+const char *gamesLabel[] = {"Pong", "Mine", "Jump"};
 int degree = 0;
-uint16_t calData[5] = {342, 3174, 533, 3248, 4};
+uint16_t calData[5] = {342, 3174, 533, 3248, 4};  // touch calibration
 
 void setup() {
   Serial.begin(9600);
@@ -32,7 +34,7 @@ void setup() {
 }
 
 void loop() {
-  printMenu(tfts, inputs, inputsLabel);
+  printMenu(tfts, inputs, inputsLabel, "APPLICATIONS");
   while(!menuInput(tfts, inputs, inputsLabel) && degree == 0){ }
   for(int i = 0 ; i < 3 ; i ++){
     if(inputs[i].isPressed()){
@@ -40,9 +42,10 @@ void loop() {
       if(inputsLabel[i] == "Games"){
         degree++;
         tfts.fillScreen(TFT_BLACK);
+        printMenu(tfts, gamesInput, gamesLabel, "GAMES");
         printBackButton(tfts, back);
         while(degree == 1){
-          if(pressed(tfts, back[0])) {degree--; inputs[i].press(false);}
+          if(pressed(tfts, back[0])) {tfts.fillScreen(TFT_BLACK); degree--; inputs[i].press(false);}
         }
       }
      
@@ -53,7 +56,7 @@ void loop() {
         printDrawingButton(tfts, erase);
         while(degree == 1){
           drawing(tfts, erase);
-          if(pressed(tfts, back[0])) {degree--; inputs[i].press(false);}
+          if(pressed(tfts, back[0])) {tfts.fillScreen(TFT_BLACK); degree--; inputs[i].press(false);}
         }
       }
       
