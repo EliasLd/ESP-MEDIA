@@ -6,6 +6,7 @@
 #include "logo/logo.h"
 #include "menu/menu.h"
 #include "draw/draw.h"
+#include "games/pong.h"
 
 TFT_eSPI tfts = TFT_eSPI();
 TFT_eSPI_Button inputs[3];
