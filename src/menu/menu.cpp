@@ -15,7 +15,7 @@ void printMenu(TFT_eSPI tft, TFT_eSPI_Button inputs[3], const char *inputsLabel[
     for(uint8_t i = 0 ; i < 3 ; i++){
         inputs[i].initButton(&tft, 45  + i * (INPUT_W + INPUT_GAP_X), 80,
                             INPUT_W, INPUT_H, TFT_ORANGE, TFT_YELLOW, TFT_BLACK,
-                            (char*)inputsLabel[i], 1);
+                           (char*)inputsLabel[i], 1);
         inputs[i].drawButton();
     }
 }

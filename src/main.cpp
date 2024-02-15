@@ -20,6 +20,7 @@ int degree = 0;
 uint16_t calData[5] = {342, 3174, 533, 3248, 4};  // touch calibration
 
 Racket racket(40, 4, 0, SCREEN_HEIGHT - SCREEN_HEIGHT/4);
+Ball ball(SCREEN_WIDTH/2, SCREEN_HEIGHT/2, 5, true, false, true, false, 3);
 
 void setup() {
   Serial.begin(9600);
@@ -57,6 +58,9 @@ void loop() {
                     printRacket(tfts, &racket, TFT_WHITE);
                     while(true){
                       moveRacket(tfts, &racket);
+                      updateBall(tfts, &ball, &racket);
+                      printBall(tfts, &ball, TFT_WHITE);
+                      physic(tfts, &ball, &racket);
                     }
                 }
               }

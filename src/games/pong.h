@@ -33,5 +33,27 @@ class Block {
         } 
 };
 
+class Ball {
+    public:
+       int cx, cy;
+       int r;
+       bool right, left, up, down;
+       int speed;
+
+       Ball(int cx, int cy, int r, bool right, bool left, bool up, bool down, int speed){
+           this->cx = cx;
+           this->cy = cy;
+           this->r = r;
+           this->right = right;
+           this->left = left;
+           this->up = up;
+           this->down = down;
+           this->speed = speed;
+       }
+};
+
 void printRacket(TFT_eSPI tft, Racket *R, uint16_t color);
 void moveRacket(TFT_eSPI tft, Racket *R);
+void printBall(TFT_eSPI tft, Ball *B, u_int16_t color);
+void updateBall(TFT_eSPI tft, Ball *B, Racket *R);
+void physic(TFT_eSPI tft, Ball *B, Racket *R);
