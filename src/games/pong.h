@@ -56,4 +56,4 @@ void printRacket(TFT_eSPI tft, Racket *R, uint16_t color);
 void moveRacket(TFT_eSPI tft, Racket *R);
 void printBall(TFT_eSPI tft, Ball *B, u_int16_t color);
 void updateBall(TFT_eSPI tft, Ball *B, Racket *R);
-void physic(TFT_eSPI tft, Ball *B, Racket *R);
+bool physic(TFT_eSPI tft, Ball *B, Racket *R);

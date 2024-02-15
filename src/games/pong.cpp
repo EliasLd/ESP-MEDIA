@@ -30,7 +30,7 @@ void updateBall(TFT_eSPI tft, Ball *B, Racket *R){
     if(B->down) {B->cy += B->speed;}
 }
 
-void physic(TFT_eSPI tft, Ball *B, Racket *R){
+bool physic(TFT_eSPI tft, Ball *B, Racket *R){
     if(B->cx + B->r >= SCREEN_WIDTH){
         B->left = true;
         B->right = false;
@@ -47,4 +47,6 @@ void physic(TFT_eSPI tft, Ball *B, Racket *R){
         B->up = true;
         B->down = false;
     }
+    if(B->cy >= SCREEN_HEIGHT){return true;}
+    return false;
 }
