@@ -11,9 +11,9 @@ void moveRacket(TFT_eSPI tft, Racket *R){
     u_int16_t tx = 0, ty = 0;
     bool pressed = false;
 
-    if(tft.getTouch(&tx, &ty) && ty > R->y && (tx < R->x + R->w && tx > R->x - 10)){
+    if(tft.getTouch(&tx, &ty) && ty > R->y && (tx < R->x + R->w + 10 && tx > R->x - 10)){
         printRacket(tft, R, TFT_PURPLE);
-        R->x = tx;
+        R->x = tx - R->w / 2;
         printRacket(tft, R, TFT_WHITE);
     }
 }
