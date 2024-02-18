@@ -23,6 +23,7 @@ bool defeat = false;
 
 void setup() {
   Serial.begin(9600);
+  randomSeed(analogRead(0));
   tfts.init();
   tfts.setRotation(0);
   tfts.fillScreen(TFT_WHITE);

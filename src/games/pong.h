@@ -30,6 +30,11 @@ class Block {
             this->x = x;
             this->y = y;
             this->destroyed = destroyed;
+        }
+
+
+        void printBlock(TFT_eSPI tft, u_int16_t color){
+            tft.fillRect(this->x, this->y, this->w, this->h, color);
         } 
 };
 
