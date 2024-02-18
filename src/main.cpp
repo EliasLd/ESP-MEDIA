@@ -62,8 +62,9 @@ void loop() {
                       moveRacket(tfts, &racket);
                       updateBall(tfts, &ball, &racket);
                       printBall(tfts, &ball, TFT_WHITE);
-                      if(physic(tfts, &ball, &racket)) {defeat = true; degree--; gamesInput[i].press(false);}
+                      if(physic(tfts, &ball, &racket)) {defeat = true; gamesInput[i].press(false);}
                     }
+                    printBackButton(tfts, back);
                 }
               }
             }
